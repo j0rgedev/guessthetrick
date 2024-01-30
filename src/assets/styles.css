@@ -1,0 +1,21 @@
+@layer tailwind-base, primevue, tailwind-utilities;
+
+@layer tailwind-base {
+    @tailwind base;
+}
+
+@layer tailwind-utilities {
+    @tailwind components;
+    @tailwind utilities;
+}
+
+@layer base {
+    * {
+        font-family: "RifficFree", sans-serif !important;
+    }
+}
+
+@font-face {
+    font-family: 'RifficFree';
+    src: url('fonts/RifficFree.woff2') format('woff2');
+}

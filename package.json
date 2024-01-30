@@ -1,0 +1,28 @@
+{
+  "name": "guessthetrickv1",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.39.2",
+    "pinia": "^2.1.7",
+    "primeicons": "^6.0.1",
+    "primevue": "^3.46.0",
+    "vee-validate": "^4.12.4",
+    "vue": "^3.3.11",
+    "vue-confetti-explosion": "^1.0.2",
+    "vue3-flip-countdown": "^0.1.6"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^4.5.2",
+    "autoprefixer": "^10.4.16",
+    "postcss": "^8.4.33",
+    "tailwindcss": "^3.4.1",
+    "vite": "^5.0.10"
+  }
+}
