@@ -5,6 +5,7 @@ export const useGameStore = defineStore('game', {
     state: () => ({
         attempts: getFromLocalStorage('attempts') || 0,
         winner: getFromLocalStorage('winner') || 0,
+        dialogClosed: getFromLocalStorage('dialogClosed') || 0
     }),
     actions: {
         incrementAttempts() {
@@ -14,15 +15,21 @@ export const useGameStore = defineStore('game', {
         resetAttempts() {
             this.attempts = 0;
             this.winner = 0;
+            this.dialogClosed = 0;
             this.persistState();
         },
         setWinner(winner) {
             this.winner = winner;
             this.persistState();
         },
+        setDialogClosed(dialogClosed) {
+            this.dialogClosed = dialogClosed;
+            this.persistState();
+        },
         persistState() {
             setToLocalStorage('attempts', this.attempts);
             setToLocalStorage('winner', this.winner);
+            setToLocalStorage('dialogClosed', this.dialogClosed);
         },
     },
 });

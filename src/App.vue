@@ -4,27 +4,24 @@
   import Prize from "@/components/Prize.vue";
   import {useGameStore} from "@/stores/attempt.js";
   import NoAttemptsLeft from "@/components/NoAttemptsLeft.vue";
-  import {getFromLocalStorage, setToLocalStorage} from "@/utils/localStorage.js";
 
   const store = useGameStore();
 
   const modalVisible = ref(false);
-  const dialogClosed = ref(getFromLocalStorage('dialogClosed') || false);
 
   const onClose = (callback) => {
     callback();
     window.scrollTo(0, 0);
-    dialogClosed.value = true;
     if(store.winner || store.attempts===3){
-      setToLocalStorage('dialogClosed', dialogClosed.value);
+      store.setDialogClosed(1);
     }
   }
 
   const component = computed(() => {
     return {
       showMain: !store.winner && store.attempts < 3,
-      showPrize: store.winner && dialogClosed.value,
-      showNoAttemptsLeft: (store.attempts === 3 && !store.winner) && dialogClosed.value,
+      showPrize: store.winner && store.dialogClosed,
+      showNoAttemptsLeft: (store.attempts === 3 && !store.winner) && store.dialogClosed,
     }
   })
 
