@@ -11,7 +11,7 @@ import { createPinia } from 'pinia'
 
 const pinia = createPinia()
 pinia.use(({ store }) => {
-    store.loadAttemptsFromLocalStorage()
+    store.persistState();
 });
 
 createApp(App)

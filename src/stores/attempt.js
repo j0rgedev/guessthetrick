@@ -1,26 +1,28 @@
 import { defineStore } from 'pinia';
+import { getFromLocalStorage, setToLocalStorage } from '@/utils/localStorage.js';
 
-export const useAttemptStore = defineStore('attempts', {
+export const useGameStore = defineStore('game', {
     state: () => ({
-        attempts: 0,
+        attempts: getFromLocalStorage('attempts') || 0,
+        winner: getFromLocalStorage('winner') || 0,
     }),
     actions: {
         incrementAttempts() {
             this.attempts++;
-            this.saveAttemptsToLocalStorage();
+            this.persistState();
         },
         resetAttempts() {
             this.attempts = 0;
-            this.saveAttemptsToLocalStorage();
+            this.winner = 0;
+            this.persistState();
         },
-        loadAttemptsFromLocalStorage() {
-            const storedAttempts = localStorage.getItem('attempts');
-            if (storedAttempts) {
-                this.attempts = parseInt(storedAttempts, 10)
-            }
+        setWinner(winner) {
+            this.winner = winner;
+            this.persistState();
         },
-        saveAttemptsToLocalStorage() {
-            localStorage.setItem('attempts', this.attempts);
+        persistState() {
+            setToLocalStorage('attempts', this.attempts);
+            setToLocalStorage('winner', this.winner);
         },
     },
 });

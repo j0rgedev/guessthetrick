@@ -1,35 +1,47 @@
 <script setup>
   import Main from "@/components/Main.vue";
-  import ConfettiExplosion from "vue-confetti-explosion";
   import {computed, ref} from "vue";
   import Prize from "@/components/Prize.vue";
+  import {useGameStore} from "@/stores/attempt.js";
+  import NoAttemptsLeft from "@/components/NoAttemptsLeft.vue";
+  import {getFromLocalStorage, setToLocalStorage} from "@/utils/localStorage.js";
+
+  const store = useGameStore();
 
   const modalVisible = ref(false);
-  const isWinner = ref(false);
-  const showPrize = ref(false);
-
-  const showModal = (value) => {
-    modalVisible.value = true;
-    isWinner.value = value;
-  }
+  const dialogClosed = ref(getFromLocalStorage('dialogClosed') || false);
 
   const onClose = (callback) => {
     callback();
-    showPrize.value = isWinner.value;
     window.scrollTo(0, 0);
+    dialogClosed.value = true;
+    if(store.winner || store.attempts===3){
+      setToLocalStorage('dialogClosed', dialogClosed.value);
+    }
   }
 
+  const component = computed(() => {
+    return {
+      showMain: !store.winner && store.attempts < 3,
+      showPrize: store.winner && dialogClosed.value,
+      showNoAttemptsLeft: (store.attempts === 3 && !store.winner) && dialogClosed.value,
+    }
+  })
+
   const results = computed(() => {
-    if (isWinner.value) {
+    if (store.winner) {
       return {
         title: '¡GANASTE!',
-        description: '¡Felicitaciones! Corre hacia la ubicación indicada para reclamar tu premio.',
+        description: 'Presiona el botón y verás la sorpresa 👀',
         button: 'Ver premio'
       };
     } else {
       return {
         title: 'TRUCO INCORRECTO',
-        description: '¡No te preocupes! Puedes volver a intentarlo.',
+        description:
+            store.attempts === 3 ?
+            '¡Oh no! Gracias por participar. Podrás volver a intentarlo en la próxima edición 😥' :
+            '¡No te preocupes! Puedes volver a intentarlo 👍',
         button: 'Cerrar'
       };
     }
@@ -67,11 +79,9 @@
   <main class="w-full h-full relative min-h-dvh overflow-visible">
     <div class="bg-image bg-hero"></div>
     <div class="bg-overlay"></div>
-    <div class="absolute left-2/4">
-      <ConfettiExplosion v-if="showPrize"/>
-    </div>
-    <Main @results="showModal" class="main" v-if="!showPrize"/>
-    <Prize v-if="showPrize" />
+    <Main @results="modalVisible = true" class="main" v-if="component.showMain"/>
+    <Prize v-if="component.showPrize" />
+    <NoAttemptsLeft v-if="component.showNoAttemptsLeft"/>
   </main>
 </template>
 
