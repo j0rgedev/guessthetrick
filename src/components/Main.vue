@@ -3,7 +3,7 @@ import {useField, useForm} from 'vee-validate';
 import {onMounted} from "vue";
 import {ref} from "vue";
 import {getTrick, guessTrick} from "@/lib/trickService.js";
-import {useGameStore} from "@/stores/attempt.js";
+import {useGameStore} from "@/stores/game.js";
 
 const emit = defineEmits(['results'])
 const store = useGameStore();

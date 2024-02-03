@@ -1,6 +1,6 @@
 <script setup>
 import {Countdown} from 'vue3-flip-countdown'
-import {useGameStore} from "@/stores/attempt.js";
+import {useGameStore} from "@/stores/game.js";
 
 const store = useGameStore();
 </script>

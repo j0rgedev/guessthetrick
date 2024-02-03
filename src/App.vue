@@ -2,7 +2,7 @@
   import Main from "@/components/Main.vue";
   import {computed, ref} from "vue";
   import Prize from "@/components/Prize.vue";
-  import {useGameStore} from "@/stores/attempt.js";
+  import {useGameStore} from "@/stores/game.js";
   import NoAttemptsLeft from "@/components/NoAttemptsLeft.vue";
 
   const store = useGameStore();

@@ -3,7 +3,7 @@
 import {onMounted, ref} from "vue";
 import {getPrize} from "@/lib/prizeService.js";
 import ConfettiExplosion from "vue-confetti-explosion";
-import {useGameStore} from "@/stores/attempt.js";
+import {useGameStore} from "@/stores/game.js";
 
 const store = useGameStore();
 const locationUrl = ref('');
