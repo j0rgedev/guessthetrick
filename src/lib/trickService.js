@@ -23,7 +23,7 @@ export const guessTrick = async (trickId, guess) => {
             .from('trick')
             .select('id')
             .eq('id', trickId)
-            .ilike('name', `%${guess}%`)
+            .ilike('name', guess)
 
         if (error) {
             return { error };
