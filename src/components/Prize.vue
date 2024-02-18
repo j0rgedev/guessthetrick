@@ -2,15 +2,19 @@
 
 import {onMounted, ref} from "vue";
 import {getPrize} from "@/lib/prizeService.js";
-import ConfettiExplosion from "vue-confetti-explosion";
 import {useGameStore} from "@/stores/game.js";
 import {useToast} from "primevue/usetoast";
+import JSConfetti from "js-confetti";
 
+const jsConfetti = new JSConfetti();
 const store = useGameStore();
 const toast = useToast();
 const locationUrl = ref('');
 
 onMounted( async () => {
+  jsConfetti.addConfetti({
+    confettiRadius: 14,
+  });
   try {
     const { data } = await getPrize();
     if(data) locationUrl.value = data[0].location_url;
@@ -19,12 +23,11 @@ onMounted( async () => {
   }
 });
 
+
+
 </script>
 
 <template>
-  <div class="absolute left-2/4">
-    <ConfettiExplosion/>
-  </div>
   <section class="min-h-dvh p-8 flex flex-col gap-6 items-center justify-center">
     <h1 class="text-center text-[clamp(38px,5vw,56px)] tracking-wide text-cvd">
       FELICITACIONES, ERES EL GANADOR

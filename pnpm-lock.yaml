@@ -8,6 +8,9 @@ dependencies:
   '@supabase/supabase-js':
     specifier: ^2.39.2
     version: 2.39.2
+  js-confetti:
+    specifier: ^0.12.0
+    version: 0.12.0
   pinia:
     specifier: ^2.1.7
     version: 2.1.7(vue@3.4.8)
@@ -23,9 +26,6 @@ dependencies:
   vue:
     specifier: ^3.3.11
     version: 3.4.8
-  vue-confetti-explosion:
-    specifier: ^1.0.2
-    version: 1.0.2(vue@3.4.8)
   vue3-flip-countdown:
     specifier: ^0.1.6
     version: 0.1.6
@@ -946,6 +946,10 @@ packages:
     hasBin: true
     dev: true
 
+  /js-confetti@0.12.0:
+    resolution: {integrity: sha512-1R0Akxn3Zn82pMqW65N1V2NwKkZJ75bvBN/VAb36Ya0YHwbaSiAJZVRr/19HBxH/O8x2x01UFAbYI18VqlDN6g==}
+    dev: false
+
   /lilconfig@2.1.0:
     resolution: {integrity: sha512-utWOt/GHzuUxnLKxB6dk81RoOeoNeHgbrXiuGk4yyF5qlRz+iIVWu56E2fqGHFrXz0QNUhLB/8nKqvRH66JKGQ==}
     engines: {node: '>=10'}
@@ -1425,15 +1429,6 @@ packages:
     optionalDependencies:
       fsevents: 2.3.3
     dev: true
-
-  /vue-confetti-explosion@1.0.2(vue@3.4.8):
-    resolution: {integrity: sha512-80OboM3/6BItIoZ6DpNcZFqGpF607kjIVc5af56oKgtFmt5yWehvJeoYhkzYlqxrqdBe0Ko4Ie3bWrmLau+dJw==}
-    engines: {node: '>=12'}
-    peerDependencies:
-      vue: ^3.0.5
-    dependencies:
-      vue: 3.4.8
-    dev: false
 
   /vue-demi@0.14.6(vue@3.4.8):
     resolution: {integrity: sha512-8QA7wrYSHKaYgUxDA5ZC24w+eHm3sYCbp0EzcDwKqN3p6HqtTCGR/GVsPyZW92unff4UlcSh++lmqDWN3ZIq4w==}
