@@ -4,16 +4,18 @@ import {onMounted, ref} from "vue";
 import {getPrize} from "@/lib/prizeService.js";
 import ConfettiExplosion from "vue-confetti-explosion";
 import {useGameStore} from "@/stores/game.js";
+import {useToast} from "primevue/usetoast";
 
 const store = useGameStore();
+const toast = useToast();
 const locationUrl = ref('');
 
 onMounted( async () => {
-  const { data, error } = await getPrize();
-  if (error) {
-    console.error('Error al obtener el premio:', error.message);
-  } else {
-    locationUrl.value = data[0].location_url;
+  try {
+    const { data } = await getPrize();
+    if(data) locationUrl.value = data[0].location_url;
+  } catch (error){
+    toast.add({severity: 'error', summary: 'Error', detail: 'Error al obtener el premio'});
   }
 });
 

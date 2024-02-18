@@ -4,25 +4,26 @@ import {onMounted} from "vue";
 import {ref} from "vue";
 import {getTrick, guessTrick} from "@/lib/trickService.js";
 import {useGameStore} from "@/stores/game.js";
+import {useToast} from "primevue/usetoast";
 
 const emit = defineEmits(['results'])
 const store = useGameStore();
 
 const trick = ref({});
-const isCorrectGuess = ref(false);
+
+const toast = useToast();
 
 onMounted(async () => {
   if (store.winner) {
     emit('results', true);
   } else {
-    const {data, error} = await getTrick();
-    if (error) {
-      console.error('Error al obtener el truco:', error.message);
-    } else {
-      trick.value = data[0];
+    try {
+      const {data} = await getTrick();
+      if (data) trick.value = data[0];
+    } catch (error) {
+      toast.add({severity: 'error', summary: 'Error', detail: 'Error al obtener el truco'});
     }
   }
-
 });
 
 /*
@@ -43,16 +44,16 @@ function validateField(value) {
 const onSubmit = handleSubmit(async (values) => {
   if (values.value && values.value.length > 0) {
     isLoading.value = true;
+    let winner = false;
     try {
-      const {winner, error} = await guessTrick(trick.value["id"], values.value);
-      if (error) {
-        console.error('Error al adivinar el truco:', error.message);
-      }
-      isCorrectGuess.value = winner;
+      const result = await guessTrick(trick.value["id"], values.value);
+      if (result.winner) winner = result.winner;
+    } catch (error) {
+      toast.add({severity: 'error', summary: 'Error', detail: 'Error al adivinar el truco'});
     } finally {
       isLoading.value = false;
       emit('results');
-      if (isCorrectGuess.value) {
+      if (winner) {
         store.resetAttempts();
         store.setWinner(1);
       } else {
@@ -95,11 +96,10 @@ const onSubmit = handleSubmit(async (values) => {
       <Button
           type="submit"
           label="Adivinar"
-          icon="pi pi-search"
           size="large"
           class="tracking-wider"
           :loading="isLoading"
-          :disabled="Object.keys(trick).length === 0"
+          :disabled="Object.keys(trick).length === 0 || isLoading"
       />
     </form>
   </section>

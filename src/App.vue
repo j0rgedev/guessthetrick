@@ -73,6 +73,7 @@
       </div>
     </template>
   </Dialog>
+  <Toast />
   <main class="w-full h-full relative min-h-dvh overflow-visible">
     <div class="bg-image bg-hero"></div>
     <div class="bg-overlay"></div>
