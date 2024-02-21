@@ -3,6 +3,7 @@ import { getFromLocalStorage, setToLocalStorage } from '@/utils/localStorage.js'
 
 export const useGameStore = defineStore('game', {
     state: () => ({
+        trickId: getFromLocalStorage('trickId') || null,
         attempts: getFromLocalStorage('attempts') || 0,
         winner: getFromLocalStorage('winner') || 0,
         dialogClosed: getFromLocalStorage('dialogClosed') || 0
@@ -18,6 +19,10 @@ export const useGameStore = defineStore('game', {
             this.dialogClosed = 0;
             this.persistState();
         },
+        setTrickId(trickId) {
+            this.trickId = trickId;
+            this.persistState();
+        },
         setWinner(winner) {
             this.winner = winner;
             this.persistState();
@@ -30,6 +35,7 @@ export const useGameStore = defineStore('game', {
             setToLocalStorage('attempts', this.attempts);
             setToLocalStorage('winner', this.winner);
             setToLocalStorage('dialogClosed', this.dialogClosed);
+            setToLocalStorage('trickId', this.trickId);
         },
     },
 });

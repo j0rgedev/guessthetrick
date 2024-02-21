@@ -19,7 +19,11 @@ onMounted(async () => {
   } else {
     try {
       const {data} = await getTrick();
-      if (data) trick.value = data[0];
+      if (data) {
+        console.log("MOUNTED")
+        trick.value = data[0];
+        store.setTrickId(data[0]["id"]);
+      }
     } catch (error) {
       toast.add({severity: 'error', summary: 'Error', detail: 'Error al obtener el truco'});
     }

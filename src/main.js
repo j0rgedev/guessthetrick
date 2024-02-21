@@ -7,6 +7,7 @@ import App from './App.vue'
 import PrimeVue from 'primevue/config';
 import Button from "primevue/button";
 import InputText from "primevue/inputtext";
+import Image from 'primevue/image';
 import Dialog from 'primevue/dialog';
 import Toast from "primevue/toast";
 import ToastService from 'primevue/toastservice';
@@ -23,6 +24,7 @@ createApp(App)
     .use(ToastService)
     .component('Button', Button)
     .component('InputText', InputText)
+    .component('Image', Image)
     .component('Dialog', Dialog)
     .component('Toast', Toast)
     .mount('#app')
