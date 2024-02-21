@@ -56,7 +56,7 @@ onMounted(async () => {
       👇
     </div>
   </section>
-  <section class="w-full p-8 mt-8 flex flex-col justify-center items-center gap-8">
+  <section class="w-full p-8 mt-8 flex flex-col justify-center items-center gap-8 pb-24">
     <div class="max-h-[400px] sm:max-h-[500px] md:max-h-[600px] w-full md:w-3/4 flex justify-center overflow-hidden">
       <Image
           :src="prize.locationPhoto"
